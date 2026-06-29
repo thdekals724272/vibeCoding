@@ -40,11 +40,6 @@ jobs:
           mkdir -p _site/mini_sns
           cp -r lecture1/mini_sns/dist/. _site/mini_sns/
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-        with:
-          enablement: true
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
