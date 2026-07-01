@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      - name: Install dependencies (mini_sns)
         working-directory: lecture1/mini_sns
         run: npm install
 
@@ -33,12 +33,25 @@ jobs:
           VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJmcHh0b25va2hrbHNnbHJuaWdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3MjkxMjIsImV4cCI6MjA5ODMwNTEyMn0.If_cPqd0SFZbaumzJGeDeq65rpkiw_IAI3_aWmgWSoc
         run: npm run build
 
+      - name: Install dependencies (export-connect)
+        working-directory: lecture1/export-connect
+        run: npm install
+
+      - name: Build export-connect
+        working-directory: lecture1/export-connect
+        env:
+          VITE_SUPABASE_URL: https://pzgkprifhxlzrkdygvvc.supabase.co
+          VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB6Z2twcmlmaHhsenJrZHlndnZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyOTM4NzUsImV4cCI6MjA5Nzg2OTg3NX0.jSIs6UnSG7y6ayW1-3SupeQxa0R92O59tq0nEpU-Qrc
+        run: npm run build
+
       - name: Prepare deployment directory
         run: |
           mkdir -p _site
           cp index.html _site/
           mkdir -p _site/mini_sns
           cp -r lecture1/mini_sns/dist/. _site/mini_sns/
+          mkdir -p _site/export-connect
+          cp -r lecture1/export-connect/dist/. _site/export-connect/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
